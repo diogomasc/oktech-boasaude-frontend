@@ -1,4 +1,5 @@
 import React from "react";
+import { Sprout, Clock, Shield } from "lucide-react";
 
 export default function SobreNos() {
   return (
@@ -23,29 +24,41 @@ export default function SobreNos() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-10">
-          <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md">
-            <div className="text-green-600 text-4xl mb-4">🌱</div>
-            <h3 className="text-xl font-bold mb-2">Sustentabilidade</h3>
-            <p className="text-gray-600">
-              Trabalhamos com produtores locais que respeitam o meio ambiente e os ciclos naturais da produção.
-            </p>
-          </div>
-          <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md">
-            <div className="text-4xl mb-4">🚚</div>
-            <h3 className="text-xl font-bold mb-2">Compromisso</h3>
-            <p className="text-gray-600">
-              Garantimos entregas rápidas e seguras, preservando a qualidade e frescor de cada produto.
-            </p>
-          </div>
-          <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md">
-            <div className="text-green-600 text-4xl mb-4">🤝</div>
-            <h3 className="text-xl font-bold mb-2">Confiança</h3>
-            <p className="text-gray-600">
-              Prezamos pela transparência e pela confiança em cada etapa do processo, do campo até sua mesa.
-            </p>
-          </div>
-        </div>
+                 <div className="grid md:grid-cols-3 gap-8 mt-10">
+           <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md text-center">
+             <div className="flex justify-center mb-4">
+               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                 <Sprout className="h-6 w-6 text-green-600" />
+               </div>
+             </div>
+             <h3 className="text-xl font-bold mb-2">Sustentabilidade</h3>
+             <p className="text-gray-600">
+               Trabalhamos com produtores locais que respeitam o meio ambiente e os ciclos naturais da produção.
+             </p>
+           </div>
+           <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md text-center">
+             <div className="flex justify-center mb-4">
+               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                 <Clock className="h-6 w-6 text-blue-600" />
+               </div>
+             </div>
+             <h3 className="text-xl font-bold mb-2">Compromisso</h3>
+             <p className="text-gray-600">
+               Garantimos entregas rápidas e seguras, preservando a qualidade e frescor de cada produto.
+             </p>
+           </div>
+           <div className="p-6 bg-green-50 rounded-2xl transform transition-transform duration-200 hover:scale-105 shadow-md text-center">
+             <div className="flex justify-center mb-4">
+               <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                 <Shield className="h-6 w-6 text-yellow-600" />
+               </div>
+             </div>
+             <h3 className="text-xl font-bold mb-2">Confiança</h3>
+             <p className="text-gray-600">
+               Prezamos pela transparência e pela confiança em cada etapa do processo, do campo até sua mesa.
+             </p>
+           </div>
+         </div>
       </section>
     </div>
   );

@@ -129,18 +129,18 @@ export function Header() {
            * </div>
            */}
 
-          {/* Botões visíveis para usuários com role específica */}
-          {isAdmin && (
-            <><Button className="bg-green-500">Meus Produtos</Button>
-              <Button className="bg-green-500">Relatórios</Button>
-            </>
-          )}
-          {isProductor && (
-            <>
-              <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
-              <Button className="bg-green-500">Meus Produtos</Button>
-            </>
-          )}
+                     {/* Botões visíveis para usuários com role específica */}
+           {isAdmin && (
+             <><Button className="bg-green-500">Meus Produtos</Button>
+               <Button className="bg-green-500">Relatórios</Button>
+             </>
+           )}
+           {isProductor && (
+             <>
+               <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
+               <Button className="bg-green-500">Meus Produtos</Button>
+             </>
+           )}
 
 
           {/* Se usuário está autenticado, mostra dropdown do perfil */}
@@ -170,6 +170,7 @@ export function Header() {
           ) : (
             /* Se não está autenticado, mostra botões de login/cadastro */
             <>
+              <Button variant="ghost" className="text-zinc-950 cursor-pointer" onClick={() => router.push("/como-funciona")}>Como Funciona</Button>
               <Button className="bg-green-500 cursor-pointer" onClick={() => router.push("/login")}>Login</Button>
               <Button className="bg-white text-zinc-950 cursor-pointer" onClick={() => router.push("/cadastro")}>Cadastro</Button>
             </>
