@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "My App",
-  };
+};
 
 export default function RootLayout({ children }) {
   return (
