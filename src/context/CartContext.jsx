@@ -31,6 +31,15 @@ export function CartProvider({ children }) {
     [items]
   );
 
+  const totalPrice = useMemo(
+    () => items.reduce((sum, it) => sum + (it.product.price * it.quantity), 0),
+    [items]
+  );
+
+  const getItemTotal = useCallback((product, quantity) => {
+    return product.price * quantity;
+  }, []);
+
   const addItem = useCallback((product, quantity = 1) => {
     setItems((prev) => {
       const existingIndex = prev.findIndex((p) => p.product.id === product.id);
@@ -63,8 +72,19 @@ export function CartProvider({ children }) {
   const clearCart = useCallback(() => setItems([]), []);
 
   const value = useMemo(
-    () => ({ items, totalQuantity, addItem, removeItem, updateQuantity, clearCart, isCheckingOut, setIsCheckingOut }),
-    [items, totalQuantity, addItem, removeItem, updateQuantity, clearCart, isCheckingOut]
+    () => ({ 
+      items, 
+      totalQuantity, 
+      totalPrice, 
+      getItemTotal, 
+      addItem, 
+      removeItem, 
+      updateQuantity, 
+      clearCart, 
+      isCheckingOut, 
+      setIsCheckingOut 
+    }),
+    [items, totalQuantity, totalPrice, getItemTotal, addItem, removeItem, updateQuantity, clearCart, isCheckingOut]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
