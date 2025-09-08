@@ -12,13 +12,9 @@ export const useOrder = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
 
-  // Função para alterar quantidade de um item
+  // Função para alterar quantidade de um item (sem remoção automática)
   const handleQuantityChange = (productId, newQuantity) => {
-    if (newQuantity < 1) {
-      removeItem(productId);
-    } else {
-      updateQuantity(productId, newQuantity);
-    }
+    updateQuantity(productId, newQuantity);
   };
 
   // Função para finalizar a compra
