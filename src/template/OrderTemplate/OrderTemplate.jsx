@@ -7,6 +7,7 @@ import { useOrder } from "../../hooks/useOrder";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
+import DialogConfirming from "@/components/modals/DialogConfirming";
 
 export function OrderTemplate() {
   const {
@@ -17,13 +18,39 @@ export function OrderTemplate() {
     getItemTotal,
     removeItem,
     clearCart,
-    handleQuantityChange,
+    handleQuantityChange: originalHandleQuantityChange,
+    updateQuantity,
     handleCheckout,
     formatPrice,
-    router,
+    router
   } = useOrder();
 
+  // Função para interceptar mudanças de quantidade e confirmar remoção quando vai para 0
+  const handleQuantityChange = (productId, newQuantity) => {
+    if (newQuantity < 1) {
+      // Encontrar o produto que será removido
+      const product = items.find(item => item.product.id === productId);
+      if (product) {
+        setProductToRemove(product.product);
+        setShowRemoveModal(true);
+      }
+    } else {
+      updateQuantity(productId, newQuantity);
+    }
+  };
+
   const [mounted, setMounted] = useState(false);
+  
+  // Estados para controlar os modais de confirmação
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
+  const [showClearCartModal, setShowClearCartModal] = useState(false);
+  const [productToRemove, setProductToRemove] = useState(null);
+
+  // Função para confirmar checkout após modal
+  const handleConfirmCheckout = () => {
+    handleCheckout();
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -171,7 +198,10 @@ export function OrderTemplate() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => removeItem(product.id)}
+                          onClick={() => {
+                            setProductToRemove(product);
+                            setShowRemoveModal(true);
+                          }}
                           className="text-red-500 hover:text-red-700 hover:bg-red-50 mt-1"
                         >
                           <Trash2 className="w-4 h-4 mr-1" />
@@ -213,7 +243,7 @@ export function OrderTemplate() {
                 </div>
 
                 <Button
-                  onClick={handleCheckout}
+                  onClick={() => setShowCheckoutModal(true)}
                   disabled={isProcessing}
                   className="w-full bg-green-500 hover:bg-green-600 text-white py-3 text-sm"
                 >
@@ -231,7 +261,7 @@ export function OrderTemplate() {
                 {items.length > 0 && (
                   <Button
                     variant="ghost"
-                    onClick={clearCart}
+                    onClick={() => setShowClearCartModal(true)}
                     className="w-full text-red-500 hover:text-red-700 hover:bg-red-50 text-sm"
                   >
                     Limpar Carrinho
@@ -242,6 +272,50 @@ export function OrderTemplate() {
           </div>
         </div>
       )}
+      
+      {/* Modais de Confirmação */}
+      
+      {/* Modal de Confirmação - Finalizar Compra */}
+      <DialogConfirming
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        onConfirm={handleConfirmCheckout}
+        title="Finalizar Compra"
+        text={`Confirmar a compra de ${totalQuantity} ${totalQuantity === 1 ? 'item' : 'itens'} no valor total de ${formatPrice(totalPrice)}?`}
+        cancelButtonText="Cancelar"
+        confirmButtonText="Confirmar Compra"
+        confirmButtonVariant="default"
+      />
+      
+      {/* Modal de Confirmação - Remover Produto */}
+      <DialogConfirming
+        isOpen={showRemoveModal}
+        onClose={() => {
+          setShowRemoveModal(false);
+          setProductToRemove(null);
+        }}
+        onConfirm={() => {
+          if (productToRemove) {
+            removeItem(productToRemove.id);
+            setProductToRemove(null);
+          }
+        }}
+        title="Remover Produto"
+        text={productToRemove ? `Deseja remover "${productToRemove.name}" do seu carrinho?` : ""}
+        cancelButtonText="Cancelar"
+        confirmButtonText="Remover"
+      />
+      
+      {/* Modal de Confirmação - Limpar Carrinho */}
+      <DialogConfirming
+        isOpen={showClearCartModal}
+        onClose={() => setShowClearCartModal(false)}
+        onConfirm={clearCart}
+        title="Limpar Carrinho"
+        text={`Deseja remover todos os ${totalQuantity} ${totalQuantity === 1 ? 'item' : 'itens'} do seu carrinho? Esta ação não pode ser desfeita.`}
+        cancelButtonText="Cancelar"
+        confirmButtonText="Limpar Tudo"
+      />
     </div>
   );
 }
