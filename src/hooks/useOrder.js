@@ -73,6 +73,7 @@ export const useOrder = () => {
     getItemTotal,
     removeItem,
     clearCart,
+    updateQuantity,
     handleQuantityChange,
     handleCheckout,
     formatPrice,
