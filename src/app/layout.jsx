@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Menu from "@/components/menu";
 
 export const metadata = {
   title: "BOA SAUDE",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <CartProvider>
+          <Menu></Menu>
           <Header/>
           {children}
           <ToastContainer
