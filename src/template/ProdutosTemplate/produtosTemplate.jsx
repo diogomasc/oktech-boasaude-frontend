@@ -64,24 +64,26 @@ export default function ProdutosTemplate() {
         {!loading && !error && products.length > 0 && (
           <>
             {/* Controles de paginação - Seletor de itens por página */}
-            <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Itens por página:</span>
-                <select
-                  value={pageSize}
-                  onChange={(e) => changePageSize(Number(e.target.value))}
-                  className="border border-gray-300 rounded px-2 py-1 text-sm"
-                >
-                  <option value={12}>12</option>
-                  <option value={24}>24</option>
-                  <option value={36}>36</option>
-                </select>
-              </div>
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">Itens por página:</span>
+                  <select
+                    value={pageSize}
+                    onChange={(e) => changePageSize(Number(e.target.value))}
+                    className="border border-gray-300 rounded px-2 py-1 text-sm"
+                  >
+                    <option value={12}>12</option>
+                    <option value={24}>24</option>
+                    <option value={36}>36</option>
+                  </select>
+                </div>
 
-              {/* Contador de exibição */}
-              <div className="text-sm text-gray-600">
-                Exibindo {pagination.numberOfElements || products.length} de{" "}
-                {totalElements} produtos
+                {/* Contador de exibição */}
+                <div className="text-sm text-gray-600">
+                  Exibindo {pagination.numberOfElements || products.length} de{" "}
+                  {totalElements} produtos
+                </div>
               </div>
             </div>
 

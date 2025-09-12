@@ -58,7 +58,7 @@ export default function ProdutoDetalheTemplate({ productId }) {
     <div className="min-h-screen bg-gray-50">
       {/* Header com navegação */}
       <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto py-4 px-4">
+        <div className="container mx-auto py-4 px-4 max-w-7xl">
           <Button
             variant="ghost"
             onClick={handleBackToCatalog}
@@ -71,7 +71,7 @@ export default function ProdutoDetalheTemplate({ productId }) {
       </div>
 
       {/* Conteúdo Principal */}
-      <div className="container mx-auto py-8 px-4">
+      <div className="container mx-auto py-8 px-4 max-w-7xl">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Seção da Imagem */}
