@@ -8,6 +8,7 @@ import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
 import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
+import { Leaf, Truck, CheckCircle } from "lucide-react";
 
 export default function HomeTemplate() {
   const {
@@ -110,39 +111,21 @@ export default function HomeTemplate() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/frescos.png"
-                  alt="Produtos Frescos"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
+                <Leaf className="h-8 w-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Produtos Frescos</h3>
               <p className="text-gray-600">Selecionamos os melhores produtos diretamente dos produtores</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/entrega.png"
-                  alt="Entrega Rápida"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
+                <Truck className="h-8 w-8 text-orange-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Entrega Rápida</h3>
               <p className="text-gray-600">Entregamos na sua casa em até 24 horas</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <Image
-                  src="/img/qualidade.png"
-                  alt="Qualidade Garantida"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
+                <CheckCircle className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Qualidade Garantida</h3>
               <p className="text-gray-600">Todos os produtos passam por rigoroso controle de qualidade</p>
@@ -162,12 +145,6 @@ export default function HomeTemplate() {
                 garantindo qualidade e sabor em cada entrega.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                  <span className="sr-only">Facebook</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                  </svg>
-                </a>
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">
                   <span className="sr-only">Instagram</span>
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -189,7 +166,7 @@ export default function HomeTemplate() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Sobre Nós</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Produtos</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
+                <li><a href="/como-funciona" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
               </ul>
             </div>
@@ -208,7 +185,7 @@ export default function HomeTemplate() {
 
           {/* Copyright */}
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 BOA SAUDE. Todos os direitos reservados.</p>
+            <p>&copy; 2025 BOA SAUDE. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
