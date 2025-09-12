@@ -28,8 +28,8 @@ export default function ProductCard({ product }) {
           src={getCategoryImage(product.category)}
           alt={product.name}
           fill
-          className="object-contain p-4"
-          sizes="(max-width: 768px) 200px, 300px br-10"
+          className="object-cover"
+          sizes="(max-width: 768px) 200px, 300px"
         />
 
         {/* Badge de Categoria */}
