@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
-import { Plus, Edit, Trash2, Search, Package, ImageIcon } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, ImageIcon } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useProducts } from '@/hooks/useProducts';
 import ProdutoModal from '@/modals/ProdutoModalForm';
@@ -14,7 +13,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function PainelProdutorTemplate() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [showCadastroModal, setShowCadastroModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -77,11 +75,7 @@ export default function PainelProdutorTemplate() {
 
 
 
-  // Filtrar produtos por termo de busca
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
 
   // Mostrar loading enquanto verifica autenticação
   if (isLoading) {
@@ -124,16 +118,7 @@ export default function PainelProdutorTemplate() {
           </Button>
         </div>
 
-        {/* Barra de pesquisa */}
-        <div className="relative mb-6">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Buscar produtos por nome ou categoria..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-        </div>
+
 
 
 
@@ -154,20 +139,20 @@ export default function PainelProdutorTemplate() {
                   onChange={(e) => changePageSize(Number(e.target.value))}
                   className="border border-gray-300 rounded px-2 py-1 text-sm"
                 >
-                  <option value={10}>10</option>
-                  <option value={20}>20</option>
-                  <option value={30}>30</option>
+                  <option value={12}>12</option>
+                  <option value={24}>24</option>
+                  <option value={36}>36</option>
                 </select>
               </div>
               
               {/* Contador de exibição */}
               <div className="text-sm text-gray-600">
-                Exibindo {filteredProducts.length} de {totalElements}
+                Exibindo {products.length} de {totalElements}
               </div>
             </div>
 
             {/* Estado vazio */}
-            {filteredProducts.length === 0 && products.length === 0 ? (
+            {products.length === 0 ? (
               <div className="text-center py-12">
                 <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">Nenhum produto cadastrado</h3>
@@ -180,17 +165,11 @@ export default function PainelProdutorTemplate() {
                   Cadastrar Primeiro Produto
                 </Button>
               </div>
-            ) : filteredProducts.length === 0 ? (
-              <div className="text-center py-12">
-                <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">Nenhum produto encontrado</h3>
-                <p className="text-gray-500">Tente buscar com outros termos</p>
-              </div>
             ) : (
               <>
                 {/* Lista de produtos */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {filteredProducts.map((product) => (
+                  {products.map((product) => (
                     <Card key={product.id} className="hover:shadow-lg transition-shadow">
                       <CardHeader className="pb-3">
                         <CardTitle className="text-lg font-semibold leading-tight break-words break-all max-w-full">

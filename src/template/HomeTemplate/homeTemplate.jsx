@@ -1,12 +1,9 @@
 'use client'
 
-import Image from "next/image";
 import ImageSlider from "@/components/ImageSlider";
 import ProductCard from "@/components/ProductCard";
-import CheckoutButton from "@/components/CheckoutButton";
 import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
-import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
 import { useRouter } from "next/navigation";
 import { Leaf, Truck, CheckCircle } from "lucide-react";
@@ -21,16 +18,12 @@ export default function HomeTemplate() {
     products,
     loading,
     error,
+    handleMouseEnter,
+    handleMouseLeave,
   } = useHome();
 
 
-  const categories = [
-    { name: "Frutas", image: "/img/frutas.jpg" },
-    { name: "Legumes", image: "/img/legumes.jpg" },
-    { name: "Verduras", image: "/img/verduras.jpg" },
-    { name: "Cestas", image: "/img/cestas.jpg" },
-    { name: "Sucos", image: "/img/sucos.jpg" }
-  ]
+
 
   return (
     <div className="min-h-screen bg-[#fff8f0]">
@@ -51,7 +44,7 @@ export default function HomeTemplate() {
           </div>
 
           {/* Horizontal Scroll Container */}
-          <div className="relative">
+          <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {/* Navigation Arrows */}
             <button 
               onClick={scrollLeft}
@@ -80,12 +73,23 @@ export default function HomeTemplate() {
             {/* Scrollable Products */}
             <div 
               ref={scrollContainerRef}
-              className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4 px-4"
+              className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 px-4 scroll-smooth"
+              style={{ scrollSnapType: 'x mandatory' }}
             >
-              {loading && <p className="text-sm text-gray-500">Carregando...</p>}
-              {error && <p className="text-sm text-red-600">{error}</p>}
-              {!loading && !error && products.map((p) => (
-                <ProductCard key={p.id} product={p} />
+              {loading && (
+                <div className="flex items-center justify-center w-full py-8">
+                  <p className="text-sm text-gray-500">Carregando produtos...</p>
+                </div>
+              )}
+              {error && (
+                <div className="flex items-center justify-center w-full py-8">
+                  <p className="text-sm text-red-600">{error}</p>
+                </div>
+              )}
+              {!loading && !error && products.map((product, index) => (
+                <div key={`${product.id}-${index}`} className="scroll-snap-align-start">
+                  <ProductCard product={product} />
+                </div>
               ))}
             </div>
           </div>
