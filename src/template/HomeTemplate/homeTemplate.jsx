@@ -166,7 +166,7 @@ export default function HomeTemplate() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Sobre Nós</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Produtos</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
+                <li><a href="/como-funciona" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
               </ul>
             </div>

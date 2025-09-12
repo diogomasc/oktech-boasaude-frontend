@@ -170,7 +170,6 @@ export function Header() {
           ) : (
             /* Se não está autenticado, mostra botões de login/cadastro */
             <>
-              <Button variant="ghost" className="text-zinc-950 cursor-pointer" onClick={() => router.push("/como-funciona")}>Como Funciona</Button>
               <Button className="bg-green-500 cursor-pointer" onClick={() => router.push("/login")}>Login</Button>
               <Button className="bg-white text-zinc-950 cursor-pointer" onClick={() => router.push("/cadastro")}>Cadastro</Button>
             </>

@@ -2,12 +2,12 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Search, ShoppingCart, Package, CreditCard, CheckCircle, Heart } from "lucide-react";
+import { ArrowRight, Search, ShoppingCart, Package, CreditCard, CheckCircle, Heart, Store, Upload, Users, TrendingUp, Settings, BarChart3 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function ComoFunciona() {
   const router = useRouter();
-  const steps = [
+  const userSteps = [
     {
       icon: <Search className="h-8 w-8 text-primary" />,
       title: "1. Encontre Produtos",
@@ -46,6 +46,45 @@ export default function ComoFunciona() {
     }
   ];
 
+  const producerSteps = [
+    {
+      icon: <Users className="h-8 w-8 text-green-600" />,
+      title: "1. Crie sua Conta",
+      description: "Registre-se como produtor na plataforma",
+      details: "Preencha seus dados pessoais e de contato"
+    },
+    {
+      icon: <Store className="h-8 w-8 text-green-600" />,
+      title: "2. Cadastre sua Loja",
+      description: "Configure sua loja virtual",
+      details: "Adicione informações da sua empresa e localização"
+    },
+    {
+      icon: <Upload className="h-8 w-8 text-green-600" />,
+      title: "3. Adicione Produtos",
+      description: "Cadastre seus produtos com fotos e descrições",
+      details: "Defina preços, estoque e categorias"
+    },
+    {
+      icon: <Settings className="h-8 w-8 text-green-600" />,
+      title: "4. Configure Preços",
+      description: "Estabeleça preços competitivos",
+      details: "Ajuste valores conforme demanda e sazonalidade"
+    },
+    {
+      icon: <TrendingUp className="h-8 w-8 text-green-600" />,
+      title: "5. Gerencie Pedidos",
+      description: "Receba e processe pedidos dos clientes",
+      details: "Acompanhe vendas e atualize status"
+    },
+    {
+      icon: <BarChart3 className="h-8 w-8 text-green-600" />,
+      title: "6. Monitore Resultados",
+      description: "Acompanhe suas vendas e performance",
+      details: "Relatórios detalhados de vendas e clientes"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       {/* Header */}
@@ -55,35 +94,82 @@ export default function ComoFunciona() {
             Como Funciona
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Descubra como é fácil comprar produtos de qualidade em nossa plataforma. 
-            Um processo simples em apenas 6 passos.
+            Descubra como é fácil comprar ou vender produtos em nossa plataforma.
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {steps.map((step, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20">
-              <CardHeader className="text-center pb-4">
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                    {step.icon}
+        {/* Seção para Usuários */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Para Clientes
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Como comprar produtos em nossa plataforma
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {userSteps.map((step, index) => (
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20">
+                <CardHeader className="text-center pb-4">
+                  <div className="flex justify-center mb-4">
+                    <div className="p-3 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                      {step.icon}
+                    </div>
                   </div>
-                </div>
-                <CardTitle className="text-xl font-semibold text-foreground">
-                  {step.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <CardDescription className="text-base mb-2">
-                  {step.description}
-                </CardDescription>
-                <p className="text-sm text-muted-foreground">
-                  {step.details}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+                  <CardTitle className="text-xl font-semibold text-foreground">
+                    {step.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <CardDescription className="text-base mb-2">
+                    {step.description}
+                  </CardDescription>
+                  <p className="text-sm text-muted-foreground">
+                    {step.details}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Seção para Produtores */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Para Produtores
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Como vender seus produtos em nossa plataforma
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {producerSteps.map((step, index) => (
+              <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-green-600/20">
+                <CardHeader className="text-center pb-4">
+                  <div className="flex justify-center mb-4">
+                    <div className="p-3 bg-green-100 rounded-full group-hover:bg-green-200 transition-colors">
+                      {step.icon}
+                    </div>
+                  </div>
+                  <CardTitle className="text-xl font-semibold text-foreground">
+                    {step.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <CardDescription className="text-base mb-2">
+                    {step.description}
+                  </CardDescription>
+                  <p className="text-sm text-muted-foreground">
+                    {step.details}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* CTA Section */}
@@ -98,11 +184,11 @@ export default function ComoFunciona() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                 <Button size="lg" className="group" onClick={() => router.push("/")}>
-                   Ver Produtos
-                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                 </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="group" onClick={() => router.push("/")}>
+                  Ver Produtos
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
                 <Button variant="outline" size="lg" onClick={() => router.push("/cadastro")} className="group hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                   Criar Conta
                 </Button>
@@ -144,7 +230,7 @@ export default function ComoFunciona() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Sobre Nós</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Produtos</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
+                <li><a href="/como-funciona" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
               </ul>
             </div>
