@@ -36,3 +36,11 @@ export const maskCNPJ = (value) => {
   value = value.replace(/(\d{4})(\d)/, "$1-$2");
   return value;
 };
+
+// Função para aplicar máscara no CEP
+export const maskCEP = (value) => {
+  if (!value) return "";
+  value = value.replace(/\D/g, ""); // Remove tudo que não é dígito
+  value = value.replace(/(\d{5})(\d)/, "$1-$2"); // Aplica a máscara 00000-000
+  return value;
+};

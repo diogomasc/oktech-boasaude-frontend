@@ -1,10 +1,11 @@
-'use client';
+"use client";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { fetchAndStoreUserData } from '../services/setLocalStorage';
-import { CircleUser } from 'lucide-react';
+import { fetchAndStoreUserData } from "../services/setLocalStorage";
+import { CircleUser } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,42 +13,46 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CartSheet from "@/components/CartSheet";
+import { useCart } from "@/context/CartContext";
+import { ShoppingCart } from "lucide-react";
 
 export function Header() {
   const [role, setRole] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { totalQuantity } = useCart();
   const router = useRouter();
 
   // Função para verificar autenticação
   const checkAuthentication = async () => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem("jwtToken");
 
     if (token) {
       setIsAuthenticated(true);
 
       try {
         // Tentar buscar dados do usuário se não existirem
-        let userData = localStorage.getItem('userData');
+        let userData = localStorage.getItem("userData");
         if (!userData) {
           await fetchAndStoreUserData("/v1/users");
-          userData = localStorage.getItem('userData');
+          userData = localStorage.getItem("userData");
         }
 
         if (userData) {
           const userInfo = JSON.parse(userData);
-          setUserName(userInfo.name || '');
-          setRole(userInfo.role || '');
-          localStorage.setItem('role', userInfo.role || '');
+          setUserName(userInfo.name || "");
+          setRole(userInfo.role || "");
+          localStorage.setItem("role", userInfo.role || "");
         }
       } catch (error) {
-        console.error('Erro ao buscar dados do usuário:', error);
+        console.error("Erro ao buscar dados do usuário:", error);
       }
     } else {
       setIsAuthenticated(false);
       setRole(null);
-      setUserName('');
+      setUserName("");
     }
   };
 
@@ -56,18 +61,18 @@ export function Header() {
 
     // Listener para mudanças no localStorage (quando outro componente salva o token)
     const handleStorageChange = (e) => {
-      if (e.key === 'jwtToken' || e.key === 'userData') {
+      if (e.key === "jwtToken" || e.key === "userData") {
         checkAuthentication();
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
 
     // Verificar periodicamente se há mudanças (fallback)
     const interval = setInterval(checkAuthentication, 2000);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
       clearInterval(interval);
     };
   }, []);
@@ -78,29 +83,36 @@ export function Header() {
       setIsScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Evitar erro de hidratação
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   const isAdmin = role === "ADMIN";
   const isProductor = role === "PRODUCTOR" || role === "ADMIN";
 
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken');
-    localStorage.removeItem('role');
-    localStorage.removeItem('userData');
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userData");
     setIsAuthenticated(false);
     setRole(null);
-    setUserName('');
-    router.push('/');
+    setUserName("");
+    router.push("/");
   };
 
   return (
-    <header className={`text-zinc-950 text-3xl drop-shadow-lg transition-all duration-300 ${
-      isScrolled 
-        ? 'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg' 
-        : 'relative'
-    }`}>
+    <header
+      className={`text-zinc-950 text-3xl drop-shadow-lg transition-all duration-300 ${
+        isScrolled
+          ? "fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg"
+          : "relative"
+      }`}
+    >
       <div className="flex align-center text-center m-4 justify-between items-center">
         <div onClick={() => router.push("/")} className="cursor-pointer">
           <Image
@@ -112,7 +124,7 @@ export function Header() {
           />
         </div>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center">
           {/* Barra de Pesquisa - desativada */}
           {/**
            * <div className="relative">
@@ -129,27 +141,31 @@ export function Header() {
            * </div>
            */}
 
-                     {/* Botões visíveis para usuários com role específica */}
-           {isAdmin && (
-             <><Button className="bg-green-500">Meus Produtos</Button>
-               <Button className="bg-green-500">Relatórios</Button>
-             </>
-           )}
-           {isProductor && (
-             <>
-               <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
-               <Button className="bg-green-500">Meus Produtos</Button>
-             </>
-           )}
+          {/* Botões visíveis para usuários com role específica */}
+          {isAdmin && (
+            <>
+              <Button className="bg-green-500">Relatórios</Button>
+            </>
+          )}
 
+          {/* Ícone do Carrinho com contador - posicionado antes do perfil */}
+          <Link
+            href="/order"
+            className="relative cursor-pointer hover:scale-110 transition-transform duration-200 flex items-center"
+          >
+            <ShoppingCart className="w-6 h-6 text-green-500" />
+            {mounted && totalQuantity > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {totalQuantity}
+              </span>
+            )}
+          </Link>
 
           {/* Se usuário está autenticado, mostra dropdown do perfil */}
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <CircleUser
-                  className="h-8 w-8 text-green-500 cursor-pointer hover:scale-105 transition-transform"
-                />
+                <CircleUser className="h-8 w-8 text-green-500 cursor-pointer hover:scale-105 transition-transform" />
                 <span className="sr-only">Menu do usuário</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -157,26 +173,41 @@ export function Header() {
                   Meu Perfil
                 </DropdownMenuItem>
                 {/* Mostrar "Cadastrar Loja" apenas para usuários com role USER */}
-                {role === 'USER' && (
-                  <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
+                {role === "USER" && (
+                  <DropdownMenuItem
+                    onClick={() => router.push("/cadastro-loja")}
+                  >
                     Cadastrar Loja
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuItem onClick={handleLogout}>
-                  Sair
-                </DropdownMenuItem>
+                {/* Nova opção para produtores */}
+                {isProductor && (
+                  <DropdownMenuItem
+                    onClick={() => router.push("/painel-produtor")}
+                  >
+                    Gerenciar Produtos
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={handleLogout}>Sair</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             /* Se não está autenticado, mostra botões de login/cadastro */
             <>
-              <Button className="bg-green-500 cursor-pointer" onClick={() => router.push("/login")}>Login</Button>
-              <Button className="bg-white text-zinc-950 cursor-pointer" onClick={() => router.push("/cadastro")}>Cadastro</Button>
+              <Button
+                className="bg-green-500 cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
+                Login
+              </Button>
+              <Button
+                className="bg-white text-zinc-950 cursor-pointer"
+                onClick={() => router.push("/cadastro")}
+              >
+                Cadastro
+              </Button>
             </>
           )}
-
-          {/* Carrinho sempre visível 
-          <CartSheet />*/}
         </div>
       </div>
       <hr className="border-t-2 opacity-10 border-zinc-950 drop-shadow-4xl" />

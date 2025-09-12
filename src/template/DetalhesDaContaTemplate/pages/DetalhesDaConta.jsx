@@ -110,17 +110,6 @@ export default function DetalhesDaConta({
         </>
       )}
 
-      {/* Seção de Endereço - título dinâmico baseado na role */}
-      <h2 className="text-lg font-semibold">
-        {isProducer ? 'Endereço da Loja' : 'Endereço de Entrega'}
-      </h2>
-      <div className="text-center py-16 text-gray-500 mb-4">
-        {isProducer 
-          ? 'Informações de endereço da loja em desenvolvimento...' 
-          : 'Informações de local de entrega em desenvolvimento...'
-        }
-      </div>
-
       {/* Botões componentizados */}
       <ActionButtons 
         primaryAction={handleEditInfo}

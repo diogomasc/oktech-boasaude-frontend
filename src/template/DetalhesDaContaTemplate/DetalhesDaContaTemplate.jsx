@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/tabs';
 import DetalhesDaConta from './pages/DetalhesDaConta';
 import HistoricoPedidos from './pages/HistoricoPedidos';
 import MetodosPagamento from './pages/MetodosPagamento';
+import Enderecos from './pages/Enderecos';
 import React from "react";
 
 export default function DetalhesDaContaTemplate() {
@@ -77,6 +78,13 @@ export default function DetalhesDaContaTemplate() {
               Detalhe da conta
             </TabsTrigger>
             <TabsTrigger
+              value="enderecos"
+              activeTab={activeTab}
+              onClick={() => handleTabChange("enderecos")}
+            >
+              Endereços
+            </TabsTrigger>
+            <TabsTrigger
               value="historico"
               activeTab={activeTab}
               onClick={() => handleTabChange("historico")}
@@ -103,6 +111,9 @@ export default function DetalhesDaContaTemplate() {
               shopData={shopData}
               hasShop={hasShop}
             />
+          </TabsContent>
+          <TabsContent value="enderecos" activeTab={activeTab}>
+            <Enderecos />
           </TabsContent>
           <TabsContent value="historico" activeTab={activeTab}>
             <HistoricoPedidos />

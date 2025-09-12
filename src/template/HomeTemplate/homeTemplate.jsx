@@ -88,7 +88,7 @@ export default function HomeTemplate() {
 
           {/* Ações */}
           <div className="flex items-center justify-center mt-8">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg">
+            <Button className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg">
               Ver Todos os Produtos
             </Button>
           </div>
