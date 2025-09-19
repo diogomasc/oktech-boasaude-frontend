@@ -6,6 +6,24 @@ export async function listProducts(params = {}) {
   return response.data;
 }
 
+// Listar produtos com paginação e filtros avançados
+export async function getProductsWithPagination({
+  page = 0,
+  size = 10,
+  sort = [],
+  category = null
+} = {}) {
+  const params = {
+    page,
+    size,
+    ...(sort.length > 0 && { sort }),
+    ...(category && { category }),
+  };
+
+  const response = await api.get("/v1/products", { params });
+  return response.data;
+}
+
 // Buscar produto por ID
 export async function getProductById(id) {
   const response = await api.get(`/v1/products/${id}`);

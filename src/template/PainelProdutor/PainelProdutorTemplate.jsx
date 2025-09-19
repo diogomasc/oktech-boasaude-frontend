@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
-import { Plus, Edit, Trash2, Search, Package, ImageIcon } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, ImageIcon } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useProducts } from '@/hooks/useProducts';
 import ProdutoModal from '@/modals/ProdutoModalForm';
@@ -14,7 +13,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function PainelProdutorTemplate() {
-  const [searchTerm, setSearchTerm] = useState('');
   const [showCadastroModal, setShowCadastroModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -77,11 +75,7 @@ export default function PainelProdutorTemplate() {
 
 
 
-  // Filtrar produtos por termo de busca
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
 
   // Mostrar loading enquanto verifica autenticação
   if (isLoading) {
@@ -125,84 +119,37 @@ export default function PainelProdutorTemplate() {
             </Button>
           </div>
 
-          {/* Barra de pesquisa */}
-          <div className="relative mb-6">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Buscar produtos por nome ou categoria..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-
-          {/* Loading */}
-          {loading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-400"></div>
-              <span className="ml-2 text-gray-600">Carregando produtos...</span>
-            </div>
-          ) : (
-            <>
-              {/* Controles de paginação - Seletor de itens por página */}
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">Itens por página:</span>
-                  <select 
-                    value={pageSize} 
-                    onChange={(e) => changePageSize(Number(e.target.value))}
-                    className="border border-gray-300 rounded px-2 py-1 text-sm"
-                  >
-                    <option value={12}>12</option>
-                    <option value={24}>24</option>
-                    <option value={36}>36</option>
-                  </select>
-                </div>
-                
-                {/* Contador de exibição */}
-                <div className="text-sm text-gray-600">
-                  Exibindo {filteredProducts.length} de {totalElements}
-                </div>
+            {/* Estado vazio */}
+            {products.length === 0 ? (
+              <div className="text-center py-12">
+                <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-600 mb-2">Nenhum produto cadastrado</h3>
+                <p className="text-gray-500 mb-6">Comece cadastrando seu primeiro produto</p>
+                <Button 
+                  onClick={() => setShowCadastroModal(true)}
+                  className="bg-green-500 hover:bg-green-600"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Cadastrar Primeiro Produto
+                </Button>
               </div>
-
-              {/* Estado vazio */}
-              {filteredProducts.length === 0 && products.length === 0 ? (
-                <div className="text-center py-12">
-                  <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">Nenhum produto cadastrado</h3>
-                  <p className="text-gray-500 mb-6">Comece cadastrando seu primeiro produto</p>
-                  <Button 
-                    onClick={() => setShowCadastroModal(true)}
-                    className="bg-green-500 hover:bg-green-600"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Cadastrar Primeiro Produto
-                  </Button>
-                </div>
-              ) : filteredProducts.length === 0 ? (
-                <div className="text-center py-12">
-                  <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-600 mb-2">Nenhum produto encontrado</h3>
-                  <p className="text-gray-500">Tente buscar com outros termos</p>
-                </div>
-              ) : (
-                <>
-                  {/* Lista de produtos */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {filteredProducts.map((product) => (
-                      <Card key={product.id} className="hover:shadow-lg transition-shadow">
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-lg font-semibold leading-tight break-words break-all max-w-full">
-                            {product.name}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                        {/* Placeholder para imagem - Funcionalidade será implementada futuramente */}
-                        <div className="mb-3">
-                          <div className="w-full h-32 bg-gray-100 rounded-md flex items-center justify-center">
-                            <ImageIcon className="w-8 h-8 text-gray-400" />
-                            <span className="text-xs text-gray-500 ml-2">Sem imagem</span>
-                          </div>
+            ) : (
+              <>
+                {/* Lista de produtos */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {products.map((product) => (
+                    <Card key={product.id} className="hover:shadow-lg transition-shadow">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg font-semibold leading-tight break-words break-all max-w-full">
+                          {product.name}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                      {/* Placeholder para imagem - Funcionalidade será implementada futuramente */}
+                      <div className="mb-3">
+                        <div className="w-full h-32 bg-gray-100 rounded-md flex items-center justify-center">
+                          <ImageIcon className="w-8 h-8 text-gray-400" />
+                          <span className="text-xs text-gray-500 ml-2">Sem imagem</span>
                         </div>
                         
                         <p className="text-gray-600 text-sm mb-3 line-clamp-2">

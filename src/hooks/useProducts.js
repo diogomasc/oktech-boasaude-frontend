@@ -145,34 +145,7 @@ export const useProducts = () => {
     }
   }, []);
 
-  // Buscar produtos por termo de pesquisa
-  const searchProducts = useCallback(async (searchTerm) => {
-    try {
-      setLoading(true);
-      setError(null);
-      
-      // Se não há termo de busca, buscar todos os produtos
-      if (!searchTerm.trim()) {
-        await fetchProducts();
-        return;
-      }
-      
-      // Filtrar produtos localmente por enquanto
-      // TODO: Implementar busca no backend se disponível
-      const filtered = products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      
-      setProducts(filtered);
-      
-    } catch (err) {
-      console.error('Erro ao buscar produtos:', err);
-      setError('Erro ao buscar produtos');
-    } finally {
-      setLoading(false);
-    }
-  }, [products, fetchProducts]);
+
 
   // Limpar erro
   const clearError = useCallback(() => {
@@ -214,7 +187,6 @@ export const useProducts = () => {
     addProduct,
     editProduct,
     removeProduct,
-    searchProducts,
     goToPage,
     changePageSize,
     clearError,
