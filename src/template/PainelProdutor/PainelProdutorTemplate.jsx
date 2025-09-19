@@ -137,6 +137,25 @@ export default function PainelProdutorTemplate() {
               </div>
             ) : (
               <>
+                {/* Controles de filtro e exibição */}
+                <div className="flex justify-between items-center mb-6">
+                  <div className="text-sm text-gray-600">
+                    Exibindo {products.length} de {totalElements} produtos
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-600">Itens por página:</span>
+                    <select 
+                      value={pageSize} 
+                      onChange={(e) => changePageSize(Number(e.target.value))}
+                      className="border border-gray-300 rounded px-2 py-1 text-sm"
+                    >
+                      <option value={12}>12</option>
+                      <option value={24}>24</option>
+                      <option value={36}>36</option>
+                    </select>
+                  </div>
+                </div>
+
                 {/* Lista de produtos */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   {products.map((product) => (
