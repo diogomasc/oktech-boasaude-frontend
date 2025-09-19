@@ -119,6 +119,8 @@ export default function PainelProdutorTemplate() {
             </Button>
           </div>
 
+          {/* Conteúdo principal */}
+          <div>
             {/* Estado vazio */}
             {products.length === 0 ? (
               <div className="text-center py-12">
@@ -145,11 +147,12 @@ export default function PainelProdutorTemplate() {
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                      {/* Placeholder para imagem - Funcionalidade será implementada futuramente */}
-                      <div className="mb-3">
-                        <div className="w-full h-32 bg-gray-100 rounded-md flex items-center justify-center">
-                          <ImageIcon className="w-8 h-8 text-gray-400" />
-                          <span className="text-xs text-gray-500 ml-2">Sem imagem</span>
+                        {/* Placeholder para imagem - Funcionalidade será implementada futuramente */}
+                        <div className="mb-3">
+                          <div className="w-full h-32 bg-gray-100 rounded-md flex items-center justify-center">
+                            <ImageIcon className="w-8 h-8 text-gray-400" />
+                            <span className="text-xs text-gray-500 ml-2">Sem imagem</span>
+                          </div>
                         </div>
                         
                         <p className="text-gray-600 text-sm mb-3 line-clamp-2">
@@ -231,10 +234,9 @@ export default function PainelProdutorTemplate() {
                   </div>
                 </>
               )}
-             </>
-           )}
-         </div>
-       </div>
+          </div>
+        </div>
+      </div>
 
       {/* Modais */}
       <ProdutoModal
