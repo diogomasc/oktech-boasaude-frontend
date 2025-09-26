@@ -8,6 +8,7 @@ import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
 import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
+import Link from "next/link";
 
 export default function HomeTemplate() {
   const {
@@ -190,7 +191,12 @@ export default function HomeTemplate() {
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Sobre Nós</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Produtos</a></li>
                 <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Como Funciona</a></li>
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                {/* Add FAQ link using Next.js Link */}
+                <li>
+                  <Link href="/faq" className="text-gray-300 hover:text-white transition-colors">
+                    FAQ
+                  </Link>
+                </li>
               </ul>
             </div>
 
