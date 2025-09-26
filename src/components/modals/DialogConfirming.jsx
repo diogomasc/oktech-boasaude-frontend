@@ -8,7 +8,8 @@ export default function DialogConfirming({
   title = "Confirmação",
   text = "Você tem certeza que quer realizar essa ação?",
   cancelButtonText = "Não, cancelar",
-  confirmButtonText = "Sim, confirmar"
+  confirmButtonText = "Sim, confirmar",
+  confirmButtonVariant = "destructive"
 }) {
   if (!isOpen) return null;
 
@@ -65,8 +66,9 @@ export default function DialogConfirming({
             {cancelButtonText}
           </Button>
           <Button
-            variant="destructive"
+            variant={confirmButtonVariant}
             onClick={handleConfirm}
+            className={confirmButtonVariant === "default" ? "bg-green-500 hover:bg-green-600 text-white" : ""}
           >
             {confirmButtonText}
           </Button>
